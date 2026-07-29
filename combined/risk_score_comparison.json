@@ -1,0 +1,53 @@
+{
+  "comparison_date": "2026-05-07T09:37:35.111221+00:00",
+  "project_model": "HistGradientBoosting AUC optimized",
+  "dataset_used_for_published_scores": "held-out rows from processed/CVD Dataset_processed.csv",
+  "clinical_alignment_notes": [
+    "Framingham and SCORE2 were evaluated only on held-out rows with the variables those scores require.",
+    "This is still a directional benchmark because the local target is a risk-level label rather than adjudicated 10-year clinical events.",
+    "Framingham was run with the lipid-based general CVD equation and assumes untreated systolic blood pressure because treatment status is unavailable.",
+    "SCORE2 was run with the published low-risk-region recalibration and should be interpreted cautiously because the dataset is not a European cohort."
+  ],
+  "framingham_comparison": {
+    "eligibility": "Held-out rows aged 30-74 with sex, cholesterol, HDL, systolic BP, smoking, and diabetes.",
+    "project_model": {
+      "rows": 304,
+      "event_rate": 0.9079,
+      "mean_predicted_risk": 0.8471,
+      "roc_auc": 0.7473,
+      "brier_score": 0.0814,
+      "log_loss": 0.2931
+    },
+    "framingham_lipids": {
+      "rows": 304,
+      "event_rate": 0.9079,
+      "mean_predicted_risk": 0.1039,
+      "roc_auc": 0.4356,
+      "brier_score": 0.7449,
+      "log_loss": 2.4754
+    }
+  },
+  "score2_comparison": {
+    "eligibility": "Held-out rows aged 40-69 with sex, cholesterol, HDL, systolic BP, smoking, and diabetes.",
+    "project_model": {
+      "rows": 210,
+      "event_rate": 0.9143,
+      "mean_predicted_risk": 0.8546,
+      "roc_auc": 0.7572,
+      "brier_score": 0.0761,
+      "log_loss": 0.2777
+    },
+    "score2_low_risk_region": {
+      "rows": 210,
+      "event_rate": 0.9143,
+      "mean_predicted_risk": 0.0513,
+      "roc_auc": 0.3302,
+      "brier_score": 0.8271,
+      "log_loss": 2.9659
+    }
+  },
+  "source_references": {
+    "framingham": "https://www.framinghamheartstudy.org/fhs-risk-functions/cardiovascular-disease-10-year-risk/",
+    "score2": "https://academic.oup.com/eurheartj/article/43/3/241/6433491"
+  }
+}

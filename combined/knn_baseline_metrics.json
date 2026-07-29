@@ -1,0 +1,39 @@
+{
+  "model": "KNN baseline (NumPy implementation)",
+  "input_csv": "C:\\Users\\titus\\Downloads\\Final year project\\data\\combined\\cad_risk_training.csv",
+  "features_used": [
+    "age_years",
+    "sex",
+    "bmi",
+    "systolic_bp",
+    "diastolic_bp",
+    "cholesterol",
+    "fasting_glucose",
+    "smoking"
+  ],
+  "rows_used": 12000,
+  "train_rows": 9600,
+  "test_rows": 2400,
+  "k": 11,
+  "preprocessing_for_model": {
+    "numeric_imputation": "median",
+    "categorical_encoding": {
+      "sex": {
+        "female": 0,
+        "male": 1
+      }
+    },
+    "feature_scaling": "z-score standardization using training mean/std"
+  },
+  "metrics": {
+    "tn": 841,
+    "fp": 359,
+    "fn": 414,
+    "tp": 786,
+    "accuracy": 0.6779,
+    "precision": 0.6865,
+    "recall_sensitivity": 0.655,
+    "specificity": 0.7008,
+    "f1": 0.6704
+  }
+}

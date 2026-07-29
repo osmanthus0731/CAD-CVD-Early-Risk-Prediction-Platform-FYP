@@ -1,0 +1,25 @@
+{
+  "model_path": "C:\\Users\\titus\\Downloads\\Final year project\\data\\combined\\cad_auc_model.pkl",
+  "rows_total": 80570,
+  "train_rows": 64456,
+  "test_rows": 16114,
+  "best_model": {
+    "model": "HistGradientBoosting AUC optimized",
+    "holdout_roc_auc": 0.7888
+  },
+  "results": [
+    {
+      "model": "HistGradientBoosting AUC optimized",
+      "holdout_roc_auc": 0.7888
+    },
+    {
+      "model": "ExtraTrees AUC optimized",
+      "holdout_roc_auc": 0.7863
+    },
+    {
+      "model": "RandomForest AUC optimized",
+      "holdout_roc_auc": 0.7849
+    }
+  ],
+  "note": "AUC-optimized model includes optional HDL, LDL, triglycerides, and physical activity when available."
+}

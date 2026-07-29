@@ -1,0 +1,48 @@
+{
+  "original_files_copied": 7,
+  "clean_files_seen": 7,
+  "combined_rows_total_mapped": 80570,
+  "combined_rows_with_target": 80570,
+  "target_distribution": {
+    "0": 40986,
+    "1": 39584
+  },
+  "source_stats": {
+    "C:\\Users\\titus\\Downloads\\Final year project\\data\\processed\\blood test triglyceride\\Diabetes Classification_processed.csv": {
+      "rows_in_source_clean_file": 5132,
+      "rows_mapped": 0,
+      "rows_with_target": 0
+    },
+    "C:\\Users\\titus\\Downloads\\Final year project\\data\\processed\\CVD Dataset_processed.csv": {
+      "rows_in_source_clean_file": 1529,
+      "rows_mapped": 1529,
+      "rows_with_target": 1529
+    },
+    "C:\\Users\\titus\\Downloads\\Final year project\\data\\processed\\Dataset_Health_wearable__sheet1_processed.csv": {
+      "rows_in_source_clean_file": 10000,
+      "rows_mapped": 0,
+      "rows_with_target": 0
+    },
+    "C:\\Users\\titus\\Downloads\\Final year project\\data\\processed\\httpswww.kaggle.comdatasetsiamsouravbanerjeeheart-attack-prediction-dataset\\heart_attack_prediction_dataset_processed.csv": {
+      "rows_in_source_clean_file": 8763,
+      "rows_mapped": 8763,
+      "rows_with_target": 8763
+    },
+    "C:\\Users\\titus\\Downloads\\Final year project\\data\\processed\\httpswww.kaggle.comdatasetsjohnsmith88heart-disease-dataset\\heart diseSe dataset_processed.csv": {
+      "rows_in_source_clean_file": 302,
+      "rows_mapped": 302,
+      "rows_with_target": 302
+    },
+    "C:\\Users\\titus\\Downloads\\Final year project\\data\\processed\\httpswww.kaggle.comdatasetssulianovacardiovascular-disease-dataset\\Cardiovascular Disease dataset_processed.csv": {
+      "rows_in_source_clean_file": 69976,
+      "rows_mapped": 69976,
+      "rows_with_target": 69976
+    },
+    "C:\\Users\\titus\\Downloads\\Final year project\\data\\processed\\Sleep health metrics\\wearable_tech_sleep_quality_1_processed.csv": {
+      "rows_in_source_clean_file": 1000,
+      "rows_mapped": 0,
+      "rows_with_target": 0
+    }
+  },
+  "output_csv": "C:\\Users\\titus\\Downloads\\Final year project\\data\\combined\\cad_risk_training.csv"
+}
