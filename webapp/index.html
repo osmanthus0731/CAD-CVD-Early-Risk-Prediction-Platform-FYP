@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CAD Risk Screening Tool</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Coronary Artery Disease Screening</p>
+          <h1>Estimate CAD risk from a short health questionnaire.</h1>
+          <p class="lede">
+            Enter the person's health details below. Unknown values can be left blank and the model will
+            use training-data defaults.
+          </p>
+          <button id="open-guide-hero" type="button" class="hero-button">View health reference guide</button>
+          <button id="open-comparison-hero" type="button" class="ghost hero-secondary">Compare benchmarks</button>
+        </div>
+      </section>
+
+      <section class="app-card">
+        <div class="screening-panel">
+          <form id="cad-form" class="question-grid">
+            <label>
+              <span>Age (years)</span>
+              <input name="age_years" type="number" min="18" max="100" step="1" required data-range-message="Age must be between 18 and 100 years.">
+            </label>
+
+            <label>
+              <span>Sex</span>
+              <select name="sex">
+                <option value="">Unknown</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </label>
+
+            <label>
+              <span>BMI</span>
+              <input name="bmi" type="number" min="10" max="70" step="0.1" placeholder="e.g. 24.8" data-range-message="BMI must be between 10 and 70.">
+            </label>
+
+            <label>
+              <span>Systolic BP</span>
+              <input name="systolic_bp" type="number" min="70" max="240" step="1" placeholder="e.g. 120" data-range-message="Systolic BP must be between 70 and 240 mmHg.">
+            </label>
+
+            <label>
+              <span>Diastolic BP</span>
+              <input name="diastolic_bp" type="number" min="40" max="140" step="1" placeholder="e.g. 80" data-range-message="Diastolic BP must be between 40 and 140 mmHg.">
+            </label>
+
+            <label>
+              <span>Total Cholesterol</span>
+              <input name="cholesterol" type="number" min="80" max="400" step="0.1" data-range-message="Total cholesterol must be between 80 and 400 mg/dL.">
+            </label>
+
+            <label>
+              <span>Fasting Glucose</span>
+              <input name="fasting_glucose" type="number" min="50" max="300" step="0.1" data-range-message="Fasting glucose must be between 50 and 300 mg/dL.">
+            </label>
+
+            <label>
+              <span>Current Smoker?</span>
+              <select name="smoking">
+                <option value="">Unknown</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Diabetes?</span>
+              <select name="diabetes">
+                <option value="">Unknown</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Family History of CAD/CVD?</span>
+              <select name="family_history_cvd">
+                <option value="">Unknown</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+              </select>
+            </label>
+
+            <div class="actions">
+              <button type="submit">Calculate CAD Risk</button>
+              <button type="reset" class="ghost">Reset</button>
+              <button id="open-comparison-form" type="button" class="ghost">Compare benchmarks</button>
+            </div>
+          </form>
+
+          <aside class="reference-card" aria-label="Reference ranges">
+            <div class="reference-heading">
+              <p class="result-label">Reference Guide</p>
+              <button id="open-guide-form" type="button" class="ghost compact">Pop up</button>
+            </div>
+            <table>
+              <caption>Blood pressure</caption>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Systolic</th>
+                  <th>Diastolic</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Normal</td>
+                  <td>&lt; 120</td>
+                  <td>&lt; 80</td>
+                </tr>
+                <tr>
+                  <td>Elevated</td>
+                  <td>120-129</td>
+                  <td>&lt; 80</td>
+                </tr>
+                <tr>
+                  <td>High</td>
+                  <td>130+</td>
+                  <td>80+</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table>
+              <caption>Total cholesterol</caption>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Desirable</td>
+                  <td>&lt; 200</td>
+                </tr>
+                <tr>
+                  <td>Borderline</td>
+                  <td>200-239</td>
+                </tr>
+                <tr>
+                  <td>High</td>
+                  <td>240+</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p class="reference-note">Fasting glucose is optional but useful. Normal is below 100; 100-125 is commonly considered prediabetes range; 126+ should be followed up.</p>
+          </aside>
+        </div>
+
+        <section id="result" class="result-card hidden" aria-live="polite">
+          <div class="result-topline">
+            <p class="result-label">Predicted Risk</p>
+            <button id="edit-answers" type="button" class="ghost compact">Edit answers</button>
+          </div>
+          <div class="result-stage">
+            <div class="risk-main-panel">
+              <div class="meter">
+                <div id="meter-fill" class="meter-fill"></div>
+              </div>
+              <h2 id="risk-percent">0%</h2>
+              <p id="risk-level" class="risk-level">Low</p>
+              <div class="risk-scale" aria-label="Risk category scale">
+                <div class="risk-scale-track">
+                  <span class="risk-marker low-marker">Low</span>
+                  <span class="risk-marker moderate-marker">Moderate</span>
+                  <span class="risk-marker high-marker">High</span>
+                </div>
+                <p id="score-distance" class="score-distance"></p>
+              </div>
+            </div>
+            <aside id="result-float-card" class="result-float-card">
+              <span id="floating-risk-eyebrow">Score meaning</span>
+              <strong id="floating-risk-level">Low range</strong>
+              <p id="floating-risk-copy">Use the factor cards below to see what pushed this prediction up or down.</p>
+              <button id="floating-advice" type="button">View advice</button>
+            </aside>
+          </div>
+
+          <p id="result-copy" class="result-copy"></p>
+          <div class="explain-panel">
+            <h3>Why this percentage?</h3>
+            <p id="why-score" class="why-score"></p>
+          </div>
+          <div>
+            <h3>Strongest factors in this prediction</h3>
+            <ul id="factor-list" class="factor-list"></ul>
+          </div>
+          <div>
+            <h3>Ways to reduce risk</h3>
+            <button id="open-advice" type="button" class="hero-button advice-button">View advice list</button>
+            <div id="suggestion-list" class="suggestion-list"></div>
+          </div>
+          <p id="missing-copy" class="missing-copy"></p>
+          <p class="disclaimer">
+            This is an educational screening tool. It does not replace a clinician's diagnosis.
+          </p>
+          <div class="result-actions">
+            <button id="try-again" type="button">Try another result</button>
+            <button id="back-to-form" type="button" class="ghost">Back to form</button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div id="guide-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="guide-title">
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="modal-panel">
+        <div class="modal-topline">
+          <div>
+            <p class="eyebrow">Infographic Layer</p>
+            <h2 id="guide-title">Health Reference Guide</h2>
+          </div>
+          <button id="close-guide" type="button" class="ghost compact">Close</button>
+        </div>
+
+        <div class="infographic-grid">
+          <article class="info-tile bp-tile">
+            <span>Blood Pressure</span>
+            <strong>Know both numbers</strong>
+            <div class="range-row"><b>Normal</b><em>&lt;120 / &lt;80</em></div>
+            <div class="range-row"><b>Elevated</b><em>120-129 / &lt;80</em></div>
+            <div class="range-row"><b>High</b><em>130+ / 80+</em></div>
+          </article>
+
+          <article class="info-tile cholesterol-tile">
+            <span>Total Cholesterol</span>
+            <strong>Lower is usually better</strong>
+            <div class="range-row"><b>Desirable</b><em>&lt;200</em></div>
+            <div class="range-row"><b>Borderline</b><em>200-239</em></div>
+            <div class="range-row"><b>High</b><em>240+</em></div>
+          </article>
+
+          <article class="info-tile glucose-tile">
+            <span>Fasting Glucose</span>
+            <strong>Optional, but helpful</strong>
+            <div class="range-row"><b>Normal</b><em>&lt;100</em></div>
+            <div class="range-row"><b>Prediabetes range</b><em>100-125</em></div>
+            <div class="range-row"><b>Follow-up</b><em>126+</em></div>
+          </article>
+        </div>
+
+        <p class="modal-note">These ranges are a simple screening reference for the app. A clinician should interpret results using full health history and local clinical guidance.</p>
+      </div>
+    </div>
+
+    <div id="advice-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="advice-title">
+      <div class="modal-backdrop" data-close-advice></div>
+      <div class="modal-panel advice-panel">
+        <div class="modal-topline">
+          <div>
+            <p class="eyebrow">Official Guidance</p>
+            <h2 id="advice-title">Risk Reduction Advice List</h2>
+          </div>
+          <button id="close-advice" type="button" class="ghost compact">Close</button>
+        </div>
+        <p id="advice-intro" class="modal-note"></p>
+        <ol id="advice-list" class="advice-list direct-advice-list"></ol>
+        <p class="modal-note">These links are educational resources, not a personal treatment plan. Discuss major changes, symptoms, or medication decisions with a healthcare professional.</p>
+      </div>
+    </div>
+
+    <div id="comparison-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="comparison-title">
+      <div class="modal-backdrop" data-close-comparison></div>
+      <div class="modal-panel comparison-panel">
+        <div class="modal-topline">
+          <div>
+            <p class="eyebrow">Benchmark Layer</p>
+            <h2 id="comparison-title">Project Model vs SCORE2 & Framingham</h2>
+          </div>
+          <button id="close-comparison" type="button" class="ghost compact">Close</button>
+        </div>
+        <p id="comparison-intro" class="modal-note"></p>
+        <div id="comparison-list" class="comparison-list"></div>
+        <div id="comparison-notes" class="comparison-notes"></div>
+      </div>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
