@@ -39,7 +39,7 @@ python -m pip install xgboost lightgbm catboost
 From the project folder:
 
 ```powershell
-cd "C:\Users\titus\Downloads\Final year project"
+cd "C:\Users\your_name\Downloads\Final year project"
 ```
 
 Start the app with the batch file:
