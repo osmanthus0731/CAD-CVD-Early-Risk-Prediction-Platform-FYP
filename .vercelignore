@@ -1,0 +1,17 @@
+# Upload only the application and its inference artifacts.
+/*
+!/api/
+!/app/
+!/webapp/
+!/data/
+!/requirements.txt
+!/.python-version
+!/vercel.json
+/data/*
+!/data/combined/
+/data/combined/*
+!/data/combined/cad_risk_model.json
+!/data/combined/cad_auc_model.pkl
+!/data/combined/risk_score_comparison.json
+**/__pycache__/**
+**/*.pyc

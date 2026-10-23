@@ -129,6 +129,31 @@ Open:
 http://127.0.0.1:8000
 ```
 
+## Deploy to Vercel
+
+Import the whole project with the directory containing `vercel.json` as the
+**Root Directory** (do not select `webapp` or `app`). Use **Other** as the
+Framework Preset. Clear any custom Build Command and Install Command overrides;
+the checked-in configuration serves `webapp` and installs `requirements.txt`.
+The Output Directory is `webapp`.
+
+`api/index.py` exposes the existing Python request handler as a Vercel Function.
+The `/api/*` routes are forwarded to it, while HTML, CSS, and JavaScript are
+served as static files. Vercel does not run `run_cad_app.bat` or start the local
+HTTP server.
+
+Include the saved files `data/combined/cad_risk_model.json`,
+`data/combined/cad_auc_model.pkl`, and
+`data/combined/risk_score_comparison.json` in the repository you deploy.
+The first file is required; the other two provide the stronger model and
+benchmark comparison. Training does not run during deployment. The
+`.vercelignore` file excludes datasets, reports, and training scripts from uploads.
+
+After redeploying, open `/api/health` on your deployment URL, then submit the
+prediction form. A successful health response has `"status": "ok"`.
+Python 3.12 and the runtime package versions are specified in the project;
+scikit-learn matches the version used to save the bundled model.
+
 ## Other Useful Commands
 
 Run the NumPy KNN baseline:
